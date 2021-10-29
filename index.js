@@ -1,6 +1,5 @@
 const program = require("commander");
 const chalk = require("chalk");
-//const clipboardy = require("clipboardy");
 const log = console.log;
 const createPassword = require("./utils/createPassword");
 const savePassword = require("./utils/savePassword");
@@ -22,7 +21,11 @@ if (save) {
   savePassword(generatedPassword);
 }
 
-//clipboardy.writeSync(generatedPassword);
+function pbcopy(generatedPassword) {
+  let proc = require("child_process").spawn("pbcopy");
+  proc.stdin.write(generatedPassword);
+  proc.stdin.end();
+}
 
 log(chalk.blue("Generated Password: ") + chalk.bold(generatedPassword));
 //log(chalk.yellow("Password copied to clipboard."));
